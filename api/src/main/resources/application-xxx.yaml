@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /
+
+spring:
+  jpa:
+    open-in-view: false
+    generate-ddl: off
+  datasource:
+    driver-class-name: 'org.mariadb.jdbc.Driver'
+    username: '...'
+    password: '...'
+    url: '...'

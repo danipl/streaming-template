@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /
+
+spring:
+  kafka:
+    message.topic: message
+    message.topic.groupId: message-consumer
+    listener:
+      ack-mode: manual
+    bootstrap-servers: st-kafka-1:9092
+    properties:
+      auto.register.schemas: true
+      key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+      schema.registry.url: http://st-schema-registry:8081
+      specific.avro.reader: true
+    producer:
+      key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
+  jpa:
+    open-in-view: false
+    generate-ddl: on
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: st-root
+    url: jdbc:mysql://st-mariadb:3306/st

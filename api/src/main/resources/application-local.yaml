@@ -1,0 +1,47 @@
+server:
+  servlet:
+    context-path: /
+  port: 8080
+
+spring:
+  cache:
+    type: redis
+  redis:
+    host: st-redis
+    port: 6379
+  kafka:
+    message.topic: message
+    bootstrap-servers: st-kafka-1:9092
+    properties:
+      auto.register.schemas: true
+      key.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+      schema.registry.url: http://st-schema-registry:8081
+    producer:
+      key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+  jpa:
+    open-in-view: false
+    generate-ddl: on
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: st-root
+    url: jdbc:mysql://st-mariadb:3306/st
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      minimumNumberOfCalls: 5
+      slowCallDurationThreshold: 300
+      failureRateThreshold: 20
+      permittedNumberOfCallsInHalfOpenState: 1
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 10s
+  instances:
+    database:
+      baseConfig: default
+      minimumNumberOfCalls: 1
+    kafka:
+      baseConfig: default
+      failureRateThreshold: 5

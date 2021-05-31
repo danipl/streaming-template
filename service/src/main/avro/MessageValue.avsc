@@ -1,0 +1,26 @@
+ {
+   "type": "record",
+   "name": "MessageValue",
+   "namespace": "com.danipl.st.kafka",
+   "fields": [
+     {
+       "name": "text",
+       "type": "string"
+     },
+     {
+       "name": "user_from_id",
+       "type": "long"
+     },
+     {
+        "name": "user_to_id",
+        "type": "long"
+      },
+      {
+        "name": "create_at",
+        "type" : {
+          "type" : "long",
+          "logicalType" : "timestamp-millis"
+        }
+      }
+   ]
+ }

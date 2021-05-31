@@ -1,0 +1,11 @@
+ {
+   "type": "record",
+   "name": "MessageKey",
+   "namespace": "com.danipl.st.kafka",
+   "fields": [
+     {
+       "name": "user_from_id",
+       "type": "long"
+     }
+   ]
+ }
